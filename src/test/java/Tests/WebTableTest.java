@@ -60,7 +60,7 @@ public class WebTableTest {
         submitBtn.click();
 
         //inchidem browser-ul
-        driver.quit();
+        //driver.quit();
 
     }
 }
