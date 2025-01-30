@@ -56,13 +56,13 @@ public class PracticeFormTest {
 
         String genderValue = "Female";
 
-        if (genderValue.equals("Male")){
+        if (maleRadioBtn.getText().equals(genderValue)){
             maleRadioBtn.click();
         }
-        else if (genderValue.equals("Female")){
+        else if (femaleRadioBtn.getText().equals(genderValue)){
             femaleRadioBtn.click();
         }
-        else if (genderValue.equals("Other")){
+        else if (otherRadioBtn.getText().equals(genderValue)){
             otherRadioBtn.click();
         }
 
