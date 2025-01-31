@@ -1,9 +1,6 @@
 package Tests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 
@@ -66,5 +63,19 @@ public class PracticeFormTest {
             otherRadioBtn.click();
         }
 
+        WebElement subjectsField = driver.findElement(By.id("subjectsInput"));
+        String subjectValues = "Social Studies";
+        subjectsField.sendKeys(subjectValues);
+        subjectsField.sendKeys(Keys.ENTER);
+
+        WebElement stateDropdown = driver.findElement(By.id("react-select-3-input"));
+        //click fortat pentru ca avem reclama
+        js.executeScript("arguments[0].click();", stateDropdown);
+        stateDropdown.sendKeys("Haryana");
+        stateDropdown.sendKeys(Keys.ENTER);
+
+        WebElement cityDropdown = driver.findElement(By.id("react-select-4-input"));
+        cityDropdown.sendKeys("Panipat");
+        cityDropdown.sendKeys(Keys.ENTER);
     }
 }
