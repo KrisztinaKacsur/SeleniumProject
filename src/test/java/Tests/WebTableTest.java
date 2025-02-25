@@ -2,7 +2,10 @@ package Tests;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 public class WebTableTest {
 
@@ -26,6 +29,9 @@ public class WebTableTest {
         //declaram un element = "Web Tables" - from Side Menu
         WebElement webTablesBtn = driver.findElement(By.id("item-3"));
         webTablesBtn.click();
+
+        List<WebElement> tableElements = driver.findElements(By.xpath("//div[@class='rt-tbody']/div/div[@class='rt-tr -even' or @class='rt-tr -odd']"));
+        Integer actualTableSize = tableElements.size();
 
         //declaram un elemnt = "Add" button
         WebElement addBtn = driver.findElement(By.id("addNewRecordButton"));
@@ -58,6 +64,21 @@ public class WebTableTest {
 
         WebElement submitBtn = driver.findElement(By.id("submit"));
         submitBtn.click();
+
+        List<WebElement> expectedTableElements = driver.findElements(By.xpath("//div[@class='rt-tbody']/div/div[@class='rt-tr -even' or @class='rt-tr -odd']"));
+
+        Integer expectedTableSize = actualTableSize +1;
+
+        Assert.assertEquals(expectedTableElements.size(), expectedTableSize);
+
+        String actualTableValue = expectedTableElements.get(3).getText();
+
+        Assert.assertTrue(actualTableValue.contains(firstNameValue));
+        Assert.assertTrue(actualTableValue.contains(lastNameValue));
+        Assert.assertTrue(actualTableValue.contains(emailFieldValue));
+        Assert.assertTrue(actualTableValue.contains(ageFieldValue));
+        Assert.assertTrue(actualTableValue.contains(salaryFieldValue));
+        Assert.assertTrue(actualTableValue.contains(departmentFieldValue));
 
         //inchidem browser-ul
         //driver.quit();

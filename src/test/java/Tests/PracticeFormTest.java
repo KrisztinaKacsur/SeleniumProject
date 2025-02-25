@@ -77,5 +77,9 @@ public class PracticeFormTest {
         WebElement cityDropdown = driver.findElement(By.id("react-select-4-input"));
         cityDropdown.sendKeys("Panipat");
         cityDropdown.sendKeys(Keys.ENTER);
+
+        WebElement submitElement = driver.findElement(By.id("submit"));
+        js.executeScript("arguments[0].click();", submitElement);
+
     }
 }
