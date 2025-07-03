@@ -1,14 +1,16 @@
 package Tests;
 
+import HelperMethods.ElementsMethods;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
-
-import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PracticeFormTest {
 
     public WebDriver driver;
+    public ElementsMethods elementsMethods;
 
     @Test
     public void automationMethod () {
@@ -17,51 +19,43 @@ public class PracticeFormTest {
         driver.get("https://demoqa.com/");
         driver.manage().window().maximize();
 
+        elementsMethods = new ElementsMethods(driver);
+
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,400)");
 
         WebElement formsField = driver.findElement(By.xpath("//h5[text()='Forms']"));
-        formsField.click();
+        elementsMethods.elementClick(formsField);
 
         WebElement practiceFormBtn = driver.findElement(By.xpath("//span[text()='Practice Form']"));
-        practiceFormBtn.click();
+        elementsMethods.elementClick(practiceFormBtn);
 
         WebElement firstNameField = driver.findElement(By.id("firstName"));
-        String firstNameValue = "Pam";
-        firstNameField.sendKeys(firstNameValue);
+        elementsMethods.fillElement(firstNameField, "Pam");
 
         WebElement lastNameField = driver.findElement(By.id("lastName"));
-        String lasNameValue = "Beesly";
-        lastNameField.sendKeys(lasNameValue);
+        elementsMethods.fillElement(lastNameField,"Beesly");
 
         WebElement emailField = driver.findElement(By.id("userEmail"));
-        String emailValue = "pam.beesly@gmail.com";
-        emailField.sendKeys(emailValue);
+        elementsMethods.fillElement(emailField, "pam.beesly@gmail.com");
 
         //are si ID, dar folosim CSS acum
         WebElement mobileNumberField = driver.findElement(By.cssSelector("input[placeholder='Mobile Number']"));
-        String mobileNumberValue = "0714558796";
-        mobileNumberField.sendKeys(mobileNumberValue);
+        elementsMethods.fillElement(mobileNumberField, "0714558796");
 
         WebElement pictureElement = driver.findElement(By.id("uploadPicture"));
-        File file = new File("src/test/resources/testPhoto.jpg");
-        pictureElement.sendKeys(file.getAbsolutePath());
+        elementsMethods.uploadPicture(pictureElement);
 
         WebElement maleRadioBtn = driver.findElement(By.xpath("//label[@for='gender-radio-1']"));
         WebElement femaleRadioBtn = driver.findElement(By.xpath("//label[@for='gender-radio-2']"));
         WebElement otherRadioBtn = driver.findElement(By.xpath("//label[@for='gender-radio-3']"));
 
-        String genderValue = "Female";
+        List<WebElement> genderElement = new ArrayList<>();
+        genderElement.add(maleRadioBtn);
+        genderElement.add(femaleRadioBtn);
+        genderElement.add(otherRadioBtn);
 
-        if (maleRadioBtn.getText().equals(genderValue)){
-            maleRadioBtn.click();
-        }
-        else if (femaleRadioBtn.getText().equals(genderValue)){
-            femaleRadioBtn.click();
-        }
-        else if (otherRadioBtn.getText().equals(genderValue)){
-            otherRadioBtn.click();
-        }
+        elementsMethods.selectElementFromListByText(genderElement,"Female");
 
         WebElement subjectsField = driver.findElement(By.id("subjectsInput"));
         String subjectValues = "Social Studies";
